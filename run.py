@@ -1,6 +1,5 @@
 import os
 import time
-import sys
 import subprocess
 
 INPUT_PROMPT = "<afk> hi! consult CLAUDE.md and keep going (: </afk>"
@@ -123,8 +122,6 @@ def wrapper():
     # Use defaults if no input provided
     session = session_default if not session else session
     workdir = workdir_default if not workdir else workdir
-    print(f"Using session: {session}")
-    print(f"Using working directory: {workdir}")
     
     # Check if INSTRUCTIONS.md exists
     instructions_path = os.path.join(workdir, "INSTRUCTIONS.md") if os.path.exists(workdir) else "INSTRUCTIONS.md"
@@ -133,44 +130,46 @@ def wrapper():
         # Read existing instructions
         with open(instructions_path, 'r') as f:
             instructions = f.read()
-        print(f"Read existing instructions from {instructions_path}")
+        print(f"read existing instructions from {instructions_path}")
     else:
         # Prompt for instructions
-        print("No existing INSTRUCTIONS.md found. Please provide instructions:")
-        instructions = input("Instructions: ")
-        print("Instructions saved.")
+        print("\033[35m whats the vibe? \033[0m")
+        instructions = input("> ")
+        print("okieeeee")
     
-    # Create workdir if it doesn't exist
     if not os.path.exists(workdir):
         os.makedirs(workdir)
-        print(f"Created working directory: {workdir}")
+        print(f"created a dir for ur stuff: {workdir}")
     
-    # Save instructions to INSTRUCTIONS.md in workdir
     instructions_save_path = os.path.join(workdir, "INSTRUCTIONS.md")
     with open(instructions_save_path, 'w') as f:
         f.write(instructions)
-    print(f"Saved instructions to {instructions_save_path}")
+    print(f"saved ur instructions to {instructions_save_path}")
     
-    # Save CLAUDE_MD to CLAUDE.md in workdir
     claude_md_path = os.path.join(workdir, "CLAUDE.md")
-    with open("CLAUDE_MD", 'r') as src:
-        with open(claude_md_path, 'w') as dst:
-            dst.write(src.read())
-    print(f"Copied CLAUDE_MD to {claude_md_path}")
+    with open(claude_md_path, 'w') as dst:
+        dst.write(CLAUDE_MD)
+    print(f"put claude's instructions at {claude_md_path}")
     
-    # Save INCOMPLETE_MD to INCOMPLETE.md in workdir
     incomplete_md_path = os.path.join(workdir, "INCOMPLETE.md")
-    with open("INCOMPLETE_MD", 'r') as src:
-        with open(incomplete_md_path, 'w') as dst:
-            dst.write(src.read())
-    print(f"Copied INCOMPLETE_MD to {incomplete_md_path}")
+    with open(incomplete_md_path, 'w') as dst:
+        dst.write(INCOMPLETE_MD)
     
     print(f"Spawning claude in tmux session '{session}'...")
-    import subprocess
-    cmd = ["tmux", "new-session", "-d",
-           "-s", session, "-c", workdir, "claude"]
-    subprocess.run(cmd)
-    print(f"Claude spawned in tmux session '{session}'")
+    try:
+        cmd = ["tmux", "new-session", "-d",
+               "-s", session, "-c", workdir, "claude"]
+        subprocess.run(cmd)
+        check = ["tmux", "ls"]
+        res = subprocess.run(check, capture_output=True, text=True)
+        if session not in res.stdout:
+            raise Exception
+    except Exception:
+        print(f"error making tmux for claude... make sure they're on path")
+        exit(1)
+
+    print(f"claude is clauding...")
+    print(f"(to watch, run \"tmux a -t {session}\")\n\n")
     main(workdir, session)
 
 if __name__ == "__main__":
