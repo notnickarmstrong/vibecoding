@@ -2,14 +2,9 @@
 
 *instructions*
 
-1. write your instructions: `echo "your instructions" > INSTRUCTIONS.md`
-2. make a folder for claude to work in: `mkdir your-project-root`
-3. move the needed files in: `cp CLAUDE.md INSTRUCTIONS.md INCOMPLETE.md your-project-root`
-4. start claude in tmux in the folder: `cd your-project-root && tmux new-session -t vibecoding`
-5. go through auth flow if needed and optionally get claude set up on your project
-6. leave tmux by typing `<ctrl+b> <d>` (re-enter with `tmux a`)
-7. navigate back here and run: `python run.py your-project-root vibecoding`
-
+1. (optional) write ur instructions in INSTRUCTIONS.md
+2. (optional) tweak the prompts in run.py
+3. python run.py
 
 *safety*
 
