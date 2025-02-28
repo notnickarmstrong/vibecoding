@@ -1,0 +1,57 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+
+# Cargo.lock is typically included for binaries, but excluded for libraries
+# Cargo.lock
+
+# Generated binaries
+/conway
+
+# IDE-specific files
+.vscode/
+.idea/
+*.iml
+.DS_Store
+
+# Configuration files that might contain sensitive information
+*.env
+.env*
+
+# Generated visualizations and exports
+*.gif
+*.png
+*.jpg
+*.jpeg
+/exports/
+/visualizations/
+
+# Benchmarking results
+/benchmarks/
+benchmark-results/
+*.bench
+
+# Backup files
+*~
+*.bak
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Generated documentation
+/doc/
+/docs/
