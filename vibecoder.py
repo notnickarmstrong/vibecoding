@@ -311,6 +311,11 @@ if __name__ == "__main__":
         else:
             # Default to using the session name as workdir
             workdir = session
+        
+        # Call run with all parameters
+        run(session=session, workdir=workdir,
+            autoapprove=args.autoapprove, autocontinue=args.autocontinue,
+            check_finished=args.check_finished)
 
 
 
