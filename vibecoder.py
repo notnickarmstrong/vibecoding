@@ -3,7 +3,7 @@ import time
 import subprocess
 
 INPUT_PROMPT = "<afk> hi! consult CLAUDE.md and keep going (: </afk>"
-APPROVAL_MSG = "Claude what to do differently (esc)"
+APPROVAL_MSG = "No, and tell Claude what to do differently (esc)"
 CLAUDE_MD = """
 # CODING AGENT INSTRUCTIONS
 ## DO NOT MODIFY
